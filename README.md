@@ -11,16 +11,43 @@ Display __pretty__ Android and iOS logs __without Android Studio or Console.app_
 
 ![Demo](./logkitty.gif)
 
+This fork is quick and dirty fix for Windows 10 + RN 0.60.5+.
+
+I use it by calllin this piece of code:
+
+```js
+const { logkitty, makeTagsFilter, formatEntry, formatError, AndroidPriority } = require('@talaikis/logkitty')
+const { logger } = require('@react-native-community/cli-tools')
+
+async function logAndroid () {
+  logger.info('Starting logkitty')
+
+  const emitter = logkitty({
+    platform: 'android',
+    priority: AndroidPriority.VERBOSE,
+    filter: makeTagsFilter('ReactNative', 'ReactNativeJS')
+  })
+
+  emitter.on('entry', entry => {
+    logger.log(formatEntry(entry))
+  })
+
+  emitter.on('error', error => {
+    logger.log(formatError(error));
+  })
+}
+```
+
 ## Installation
 
 ```sh
-yarn global add logkitty
+yarn global add @talaikis/logkitty
 ```
 
 Or if you prefer having it locally:
 
 ```sh
-yarn add -D logkitty
+yarn add -D @talaikis/logkitty
 yarn logkitty --help
 ```
 
