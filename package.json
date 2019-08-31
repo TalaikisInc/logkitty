@@ -16,13 +16,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/zamotany/logkitty.git"
+    "url": "https://github.com/TalaikisInc/logkitty.git"
   },
   "author": "Paweł Trysła <zamotany.oss@gmail.com>",
   "bugs": {
-    "url": "https://github.com/zamotany/logkitty/issues"
+    "url": "https://github.com/TalaikisInc/logkitty/issues"
   },
-  "homepage": "https://github.com/zamotany/logkitty",
+  "homepage": "https://talaikis.com",
   "license": "MIT",
   "bin": "bin/logkitty.js",
   "main": "build/api.js",
