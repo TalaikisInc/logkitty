@@ -17,10 +17,14 @@ function getAdbPath(customPath) {
         return path_1.default.resolve(customPath);
     }
     if (isWin) {
-        return process.env.ANDROID_HOME ? `${process.env.ANDROID_HOME}\\platform-tools\\adb` : 'adb';
+        return process.env.ANDROID_HOME
+            ? `${process.env.ANDROID_HOME}\\platform-tools\\adb`
+            : 'adb';
     }
     else {
-        return process.env.ANDROID_HOME ? `${process.env.ANDROID_HOME}/platform-tools/adb` : 'adb';
+        return process.env.ANDROID_HOME
+            ? `${process.env.ANDROID_HOME}/platform-tools/adb`
+            : 'adb';
     }
 }
 exports.getAdbPath = getAdbPath;

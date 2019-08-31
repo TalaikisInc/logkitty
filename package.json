@@ -43,7 +43,7 @@
   "dependencies": {
     "ansi-fragments": "^0.2.1",
     "dayjs": "^1.8.15",
-    "yargs": "^12.0.5"
+    "yargs": "^14.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.3",
@@ -51,14 +51,14 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-env": "^7.4.3",
     "@babel/preset-typescript": "^7.3.3",
-    "@callstack/eslint-config": "^4.2.0",
+    "@callstack/eslint-config": "^7.0.0",
     "@types/jest": "^24.0.11",
-    "@types/node": "^10.12.18",
-    "@types/yargs": "^12.0.7",
-    "@typescript-eslint/eslint-plugin": "^1.6.0",
-    "@typescript-eslint/parser": "^1.6.0",
+    "@types/node": "^12.7.3",
+    "@types/yargs": "^13.0.2",
+    "@typescript-eslint/eslint-plugin": "^2.0.0",
+    "@typescript-eslint/parser": "^2.0.0",
     "babel-jest": "^24.7.1",
-    "eslint": "^5.16.0",
+    "eslint": "^6.3.0",
     "execa": "^2.0.4",
     "jest": "^24.7.1",
     "typescript": "^3.2.4"

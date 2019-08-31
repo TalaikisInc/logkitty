@@ -1,5 +1,6 @@
 /* Common */
 import { EventEmitter } from 'events';
+import { ChildProcess } from 'child_process';
 import { IFilter, Entry, Platform } from './types';
 
 /* Android */
@@ -101,7 +102,7 @@ export function logkitty(options: LogkittyOptions): EventEmitter {
         : new IosFilter(priority);
   }
 
-  const loggingProcess =
+  const loggingProcess: ChildProcess =
     platform === 'android'
       ? runAndroidLoggingProcess(adbPath)
       : runSimulatorLoggingProcess();
@@ -111,7 +112,7 @@ export function logkitty(options: LogkittyOptions): EventEmitter {
     emitter.emit('exit');
   });
 
-  loggingProcess.stderr.on('data', (errorData: string | Buffer) => {
+  loggingProcess.stderr!.on('data', (errorData: string | Buffer) => {
     if (
       platform === 'ios' &&
       errorData.toString().includes('No devices are booted.')
@@ -125,7 +126,7 @@ export function logkitty(options: LogkittyOptions): EventEmitter {
     }
   });
 
-  loggingProcess.stdout.on('data', (raw: string | Buffer) => {
+  loggingProcess.stdout!.on('data', (raw: string | Buffer) => {
     let entryToLog: Entry | undefined;
     try {
       const messages = parser.splitMessages(raw.toString());
@@ -144,7 +145,7 @@ export function logkitty(options: LogkittyOptions): EventEmitter {
     }
   });
 
-  loggingProcess.stdout.on('error', (error: Error) => {
+  loggingProcess.stdout!.on('error', (error: Error) => {
     emitter.emit('error', error);
     emitter.emit('exit');
   });
