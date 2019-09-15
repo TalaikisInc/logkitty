@@ -99,7 +99,8 @@ const _a = yargs_1.default
     .demandCommand(1)
     .option('adb-path', {
     type: 'string',
-    describe: 'Use custom path to ADB',
+    describe: 'Use custom path to adb',
+    nargs: 1,
 })
     .example('$0 android tag MyTag', 'Filter logs to only include ones with MyTag tag')
     .example('$0 android tag MyTag -I', 'Filter logs to only include ones with MyTag tag and priority INFO and above')
@@ -107,7 +108,7 @@ const _a = yargs_1.default
     .example('$0 android match device', 'Show all logs matching /device/gm regex')
     .example('$0 android app com.example.myApp -E', 'Show all logs from com.example.myApp with priority ERROR and above')
     .example('$0 android custom *:S MyTag:D', 'Silence all logs and show only ones with MyTag with priority DEBUG and above'))
-    .command('ios <filter>', 'ios', yargs => yargs
+    .command('ios <filter>', 'iOS', yargs => yargs
     .command('tag <tags ...>', 'Show logs matching given tags', iosPriorityOptions)
     .command('match <regexes...>', 'Show logs matching given patterns', iosPriorityOptions)
     .command('all', 'Show all logs', iosPriorityOptions)
@@ -155,6 +156,7 @@ try {
     }
     const emitter = api_1.logkitty({
         platform: platform,
+        adbPath: args.adbPath ? String(args.adbPath) : '',
         priority: platform === 'android'
             ? utils_1.getMinPriority(api_1.AndroidPriority, selectedAndroidPriorities, api_1.AndroidPriority.DEBUG)
             : utils_1.getMinPriority(api_1.IosPriority, selectedIosPriorities, api_1.IosPriority.DEFAULT),
