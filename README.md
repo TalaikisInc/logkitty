@@ -11,7 +11,7 @@ Display __pretty__ Android and iOS logs __without Android Studio or Console.app_
 
 ![Demo](./logkitty.gif)
 
-This fork is quick and dirty fix for Windows 10 + RN 0.60.5+ along with added compilation from TS to JS. It enables to use logkitty for RN 0.60.5 (somewhat, cause you still need to use a function below), and Windows.
+This fork is a fix for Windows 10 + RN 0.60.5+ along with added compilation from TS to JS. It enables to use logkitty for RN 0.60.5 (somewhat, cause you still need to use a function below), and Windows.
 
 I use it by calllin this piece of code:
 

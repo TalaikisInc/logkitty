@@ -1,5 +1,5 @@
 import { spawn, execSync, ChildProcess } from 'child_process';
-import path from 'path';
+import { resolve, join } from 'path';
 import {
   CodeError,
   ERR_ANDROID_UNPROCESSABLE_PID,
@@ -7,7 +7,6 @@ import {
   ERR_ANDROID_CANNOT_CLEAN_LOGCAT_BUFFER,
   ERR_ANDROID_CANNOT_START_LOGCAT,
 } from '../errors';
-const isWin = process.platform === 'win32';
 
 export function runAndroidLoggingProcess(adbPath?: string): ChildProcess {
   const execPath = getAdbPath(adbPath);
@@ -16,27 +15,17 @@ export function runAndroidLoggingProcess(adbPath?: string): ChildProcess {
 
 export function getAdbPath(customPath?: string): string {
   if (customPath) {
-    return path.resolve(customPath);
+    return resolve(customPath);
   }
 
-  if (isWin) {
-    return process.env.ANDROID_HOME
-      ? `${process.env.ANDROID_HOME}\\platform-tools\\adb`
-      : 'adb';
-  } else {
-    return process.env.ANDROID_HOME
-      ? `${process.env.ANDROID_HOME}/platform-tools/adb`
-      : 'adb';
-  }
+  return process.env.ANDROID_HOME
+    ? join(process.env.ANDROID_HOME, 'platform-tools', 'adb')
+    : 'adb';
 }
 
 export function spawnLogcatProcess(adbPath: string): ChildProcess {
   try {
-    if (isWin) {
-      execSync(`${adbPath} logcat -c`);
-    } else {
-      execSync(`'${adbPath}' logcat -c`);
-    }
+    execSync(`${adbPath} logcat -c`);
   } catch (error) {
     throw new CodeError(
       ERR_ANDROID_CANNOT_CLEAN_LOGCAT_BUFFER,

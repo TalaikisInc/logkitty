@@ -1,12 +1,8 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const child_process_1 = require("child_process");
-const path_1 = __importDefault(require("path"));
+const path_1 = require("path");
 const errors_1 = require("../errors");
-const isWin = process.platform === 'win32';
 function runAndroidLoggingProcess(adbPath) {
     const execPath = getAdbPath(adbPath);
     return spawnLogcatProcess(execPath);
@@ -14,28 +10,16 @@ function runAndroidLoggingProcess(adbPath) {
 exports.runAndroidLoggingProcess = runAndroidLoggingProcess;
 function getAdbPath(customPath) {
     if (customPath) {
-        return path_1.default.resolve(customPath);
+        return path_1.resolve(customPath);
     }
-    if (isWin) {
-        return process.env.ANDROID_HOME
-            ? `${process.env.ANDROID_HOME}\\platform-tools\\adb`
-            : 'adb';
-    }
-    else {
-        return process.env.ANDROID_HOME
-            ? `${process.env.ANDROID_HOME}/platform-tools/adb`
-            : 'adb';
-    }
+    return process.env.ANDROID_HOME
+        ? path_1.join(process.env.ANDROID_HOME, 'platform-tools', 'adb')
+        : 'adb';
 }
 exports.getAdbPath = getAdbPath;
 function spawnLogcatProcess(adbPath) {
     try {
-        if (isWin) {
-            child_process_1.execSync(`${adbPath} logcat -c`);
-        }
-        else {
-            child_process_1.execSync(`'${adbPath}' logcat -c`);
-        }
+        child_process_1.execSync(`${adbPath} logcat -c`);
     }
     catch (error) {
         throw new errors_1.CodeError(errors_1.ERR_ANDROID_CANNOT_CLEAN_LOGCAT_BUFFER, error.message);
